@@ -1,45 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo } from 'react'
 import { VChart } from '@visactor/react-vchart'
 import { useTranslation } from 'react-i18next'
+import { useChartTheme } from '@/lib/use-chart-theme'
 import { cn } from '@/lib/utils'
 import { VCHART_OPTION } from '@/lib/vchart'
-import { useTheme } from '@/context/theme-provider'
 import type { LatencyTimePoint, UptimeDayPoint } from '../lib/mock-stats'
-
-let themeManagerPromise: Promise<
-  (typeof import('@visactor/vchart'))['ThemeManager']
-> | null = null
-
-function useChartTheme() {
-  const { resolvedTheme } = useTheme()
-  const [themeReady, setThemeReady] = useState(false)
-  const themeRef = useRef<
-    (typeof import('@visactor/vchart'))['ThemeManager'] | null
-  >(null)
-
-  useEffect(() => {
-    let cancelled = false
-    const updateTheme = async () => {
-      setThemeReady(false)
-      if (!themeManagerPromise) {
-        themeManagerPromise = import('@visactor/vchart').then(
-          (m) => m.ThemeManager
-        )
-      }
-      const ThemeManager = await themeManagerPromise
-      if (cancelled) return
-      themeRef.current = ThemeManager
-      ThemeManager.setCurrentTheme(resolvedTheme === 'dark' ? 'dark' : 'light')
-      setThemeReady(true)
-    }
-    updateTheme()
-    return () => {
-      cancelled = true
-    }
-  }, [resolvedTheme])
-
-  return { resolvedTheme, themeReady }
-}
 
 function formatHourLabel(iso: string): string {
   const date = new Date(iso)
