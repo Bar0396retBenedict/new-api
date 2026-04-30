@@ -1,4 +1,3 @@
-export { FilterBar } from './filter-bar'
 export { PricingSidebar } from './pricing-sidebar'
 export { PricingToolbar } from './pricing-toolbar'
 export { ModelCard } from './model-card'
