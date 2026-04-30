@@ -79,7 +79,7 @@ function SegmentedControl(props: {
     <div
       role='group'
       aria-label={props.ariaLabel}
-      className='bg-muted/60 inline-flex h-8 items-center rounded-md border p-0.5'
+      className='bg-muted/60 inline-flex h-8 items-center rounded-lg border p-0.5'
     >
       {props.options.map((option) => {
         const Icon = option.icon
@@ -91,10 +91,10 @@ function SegmentedControl(props: {
             onClick={() => props.onChange(option.value)}
             aria-pressed={isActive}
             className={cn(
-              'inline-flex h-full items-center justify-center rounded-[5px] text-xs font-medium transition-all',
+              'inline-flex h-full items-center justify-center rounded-md text-xs font-medium transition-all',
               Icon && !option.label ? 'w-7' : 'gap-1.5 px-3',
               isActive
-                ? 'bg-foreground text-background shadow-sm'
+                ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             )}
           >
