@@ -128,11 +128,9 @@ function buildDetailSegments(
 
       const cacheEntries = tieredSummary.priceEntries
         .filter((entry) =>
-          [
-            'cacheReadPrice',
-            'cacheCreatePrice',
-            'cacheCreate1hPrice',
-          ].includes(entry.field)
+          ['cacheReadPrice', 'cacheCreatePrice', 'cacheCreate1hPrice'].includes(
+            entry.field
+          )
         )
         .map((entry) => {
           return formatPriceCompact(entry.price)
