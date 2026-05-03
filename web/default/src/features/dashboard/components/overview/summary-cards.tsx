@@ -73,12 +73,10 @@ export function SummaryCards() {
                     variant='outline'
                     size='sm'
                     className='h-6 gap-1 px-2 text-xs'
-                    asChild
+                    render={<Link to='/wallet' />}
                   >
-                    <Link to='/wallet'>
-                      <CreditCard className='size-3' />
-                      {t('Recharge')}
-                    </Link>
+                    <CreditCard className='size-3' />
+                    {t('Recharge')}
                   </Button>
                 ) : undefined
               }

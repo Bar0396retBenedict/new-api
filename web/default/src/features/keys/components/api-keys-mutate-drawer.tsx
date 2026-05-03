@@ -83,7 +83,7 @@ function ApiKeyFormSection(props: ApiKeyFormSectionProps) {
           <Icon className='size-5' />
         </div>
         <div className='min-w-0'>
-          <h3 className='text-sm font-medium leading-none'>{props.title}</h3>
+          <h3 className='text-sm leading-none font-medium'>{props.title}</h3>
           <p className='text-muted-foreground mt-1 text-xs'>
             {props.description}
           </p>
@@ -282,10 +282,7 @@ export function ApiKeysMutateDrawer({
                   <FormItem>
                     <FormLabel>{t('Name')}</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={t('Enter a name')}
-                      />
+                      <Input {...field} placeholder={t('Enter a name')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -489,29 +486,31 @@ export function ApiKeysMutateDrawer({
 
             <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen}>
               <section className='bg-card rounded-lg border'>
-                <CollapsibleTrigger asChild>
-                  <button
-                    type='button'
-                    className='hover:bg-muted/50 flex w-full items-center gap-3 px-4 py-3 text-left transition-colors'
-                  >
-                    <div className='bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-lg border'>
-                      <Settings2 className='size-5' />
-                    </div>
-                    <div className='min-w-0 flex-1'>
-                      <h3 className='text-sm font-medium leading-none'>
-                        {t('Advanced Settings')}
-                      </h3>
-                      <p className='text-muted-foreground mt-1 text-xs'>
-                        {t('Set API key access restrictions')}
-                      </p>
-                    </div>
-                    <ChevronDown
-                      className={cn(
-                        'text-muted-foreground size-4 shrink-0 transition-transform',
-                        advancedOpen && 'rotate-180'
-                      )}
+                <CollapsibleTrigger
+                  render={
+                    <button
+                      type='button'
+                      className='hover:bg-muted/50 flex w-full items-center gap-3 px-4 py-3 text-left transition-colors'
                     />
-                  </button>
+                  }
+                >
+                  <div className='bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-lg border'>
+                    <Settings2 className='size-5' />
+                  </div>
+                  <div className='min-w-0 flex-1'>
+                    <h3 className='text-sm leading-none font-medium'>
+                      {t('Advanced Settings')}
+                    </h3>
+                    <p className='text-muted-foreground mt-1 text-xs'>
+                      {t('Set API key access restrictions')}
+                    </p>
+                  </div>
+                  <ChevronDown
+                    className={cn(
+                      'text-muted-foreground size-4 shrink-0 transition-transform',
+                      advancedOpen && 'rotate-180'
+                    )}
+                  />
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <div className='space-y-4 border-t p-4'>
@@ -576,8 +575,8 @@ export function ApiKeysMutateDrawer({
           </form>
         </Form>
         <SheetFooter className='bg-background gap-2 border-t px-5 py-4 sm:flex-row sm:justify-end'>
-          <SheetClose asChild>
-            <Button variant='outline'>{t('Close')}</Button>
+          <SheetClose render={<Button variant='outline' />}>
+            {t('Close')}
           </SheetClose>
           <Button form='api-key-form' type='submit' disabled={isSubmitting}>
             {isSubmitting ? t('Saving...') : t('Save changes')}

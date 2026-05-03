@@ -128,11 +128,9 @@ export function ModelsFilter({ onFilterChange, onReset }: ModelsFilterProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant='outline' size='sm'>
-          <Filter className='mr-2 h-4 w-4' />
-          {t('Filter')}
-        </Button>
+      <DialogTrigger render={<Button variant='outline' size='sm' />}>
+        <Filter className='mr-2 h-4 w-4' />
+        {t('Filter')}
       </DialogTrigger>
       <DialogContent className='flex max-h-[calc(100dvh-2rem)] flex-col sm:max-w-lg'>
         <DialogHeader>

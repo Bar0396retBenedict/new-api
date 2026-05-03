@@ -256,14 +256,16 @@ export function PasskeyCard({ loading: pageLoading }: PasskeyCardProps) {
               </Button>
             ) : (
               <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant='outline'
-                    className='w-full sm:w-auto xl:w-full 2xl:w-auto'
-                    disabled={removing}
-                  >
-                    {t('Remove Passkey')}
-                  </Button>
+                <AlertDialogTrigger
+                  render={
+                    <Button
+                      variant='outline'
+                      className='w-full sm:w-auto xl:w-full 2xl:w-auto'
+                      disabled={removing}
+                    />
+                  }
+                >
+                  {t('Remove Passkey')}
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>

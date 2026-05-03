@@ -33,7 +33,10 @@ type ApiKeyGroupComboboxProps = {
   disabled?: boolean
 }
 
-function formatGroupRatio(ratio: ApiKeyGroupOption['ratio'], ratioLabel: string) {
+function formatGroupRatio(
+  ratio: ApiKeyGroupOption['ratio'],
+  ratioLabel: string
+) {
   if (ratio === undefined || ratio === null || ratio === '') return null
   return `${ratio}x ${ratioLabel}`
 }
@@ -103,30 +106,32 @@ export function ApiKeyGroupCombobox({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          type='button'
-          variant='outline'
-          role='combobox'
-          aria-expanded={open}
-          disabled={disabled}
-          className='border-input bg-muted/40 h-auto min-h-20 w-full justify-between gap-3 rounded-lg px-4 py-3 text-start shadow-none transition-[background-color,border-color,box-shadow] duration-150 hover:bg-muted/55 hover:text-foreground active:bg-background data-[state=open]:border-ring data-[state=open]:bg-background data-[state=open]:ring-ring/20 data-[state=open]:ring-[3px]'
-        >
-          <span className='flex min-w-0 flex-1 items-center justify-between gap-3'>
-            <span className='min-w-0'>
-              <span className='block truncate font-medium'>
-                {selectedOption?.value || placeholder || t('Select a group')}
-              </span>
-              {selectedOption?.desc && (
-                <span className='text-muted-foreground block truncate text-xs'>
-                  {selectedOption.desc}
-                </span>
-              )}
+      <PopoverTrigger
+        render={
+          <Button
+            type='button'
+            variant='outline'
+            role='combobox'
+            aria-expanded={open}
+            disabled={disabled}
+            className='border-input bg-muted/40 hover:bg-muted/55 hover:text-foreground active:bg-background data-[state=open]:border-ring data-[state=open]:bg-background data-[state=open]:ring-ring/20 h-auto min-h-20 w-full justify-between gap-3 rounded-lg px-4 py-3 text-start shadow-none transition-[background-color,border-color,box-shadow] duration-150 data-[state=open]:ring-[3px]'
+          />
+        }
+      >
+        <span className='flex min-w-0 flex-1 items-center justify-between gap-3'>
+          <span className='min-w-0'>
+            <span className='block truncate font-medium'>
+              {selectedOption?.value || placeholder || t('Select a group')}
             </span>
-            <GroupRatioBadge ratio={selectedOption?.ratio} />
+            {selectedOption?.desc && (
+              <span className='text-muted-foreground block truncate text-xs'>
+                {selectedOption.desc}
+              </span>
+            )}
           </span>
-          <ChevronsUpDown className='h-4 w-4 shrink-0 opacity-50' />
-        </Button>
+          <GroupRatioBadge ratio={selectedOption?.ratio} />
+        </span>
+        <ChevronsUpDown className='h-4 w-4 shrink-0 opacity-50' />
       </PopoverTrigger>
       <PopoverContent className='data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100 data-[side=bottom]:slide-in-from-top-0 data-[side=left]:slide-in-from-right-0 data-[side=right]:slide-in-from-left-0 data-[side=top]:slide-in-from-bottom-0 w-[var(--radix-popover-trigger-width)] overflow-hidden rounded-xl p-0 shadow-lg data-[state=closed]:duration-75 data-[state=open]:duration-100'>
         <Command shouldFilter={false}>
@@ -143,7 +148,7 @@ export function ApiKeyGroupCombobox({
                   key={option.value}
                   value={option.value}
                   onSelect={handleSelect}
-                  className='items-start gap-3 rounded-lg px-3 py-3 transition-colors data-[selected=true]:bg-muted'
+                  className='data-[selected=true]:bg-muted items-start gap-3 rounded-lg px-3 py-3 transition-colors'
                 >
                   <Check
                     className={cn(

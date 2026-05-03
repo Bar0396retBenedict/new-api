@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { type Row } from '@tanstack/react-table'
 import {
   Trash2,
@@ -10,6 +9,7 @@ import {
   ArrowRightLeft,
   Copy,
   Link,
+  MoreHorizontal as DotsHorizontalIcon,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
@@ -140,14 +140,16 @@ export function DataTableRowActions<TData>({
 
   return (
     <DropdownMenu modal={false}>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant='ghost'
-          className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
-        >
-          <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>{t('Open menu')}</span>
-        </Button>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant='ghost'
+            className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
+          />
+        }
+      >
+        <DotsHorizontalIcon className='h-4 w-4' />
+        <span className='sr-only'>{t('Open menu')}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[200px]'>
         <DropdownMenuItem

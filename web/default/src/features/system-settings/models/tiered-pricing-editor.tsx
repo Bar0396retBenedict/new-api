@@ -775,7 +775,9 @@ function RuleConditionRow({
       </Select>
       <Select
         value={timeCond.timezone}
-        onValueChange={(value) => onChange({ ...timeCond, timezone: value })}
+        onValueChange={(value) =>
+          value !== null && onChange({ ...timeCond, timezone: value })
+        }
       >
         <SelectTrigger className='w-56' size='sm'>
           <SelectValue />
@@ -788,7 +790,10 @@ function RuleConditionRow({
           ))}
         </SelectContent>
       </Select>
-      <Select value={timeCond.mode} onValueChange={handleModeChange}>
+      <Select
+        value={timeCond.mode}
+        onValueChange={(v) => v !== null && handleModeChange(v)}
+      >
         <SelectTrigger className='w-32' size='sm'>
           <SelectValue />
         </SelectTrigger>
@@ -846,7 +851,10 @@ function RuleConditionRow({
         }
         className='w-44'
       />
-      <Select value={phCond.mode} onValueChange={handleModeChange}>
+      <Select
+        value={phCond.mode}
+        onValueChange={(v) => v !== null && handleModeChange(v)}
+      >
         <SelectTrigger className='w-32' size='sm'>
           <SelectValue />
         </SelectTrigger>
@@ -873,7 +881,10 @@ function RuleConditionRow({
 
   return (
     <div className='flex flex-wrap items-center gap-2'>
-      <Select value={condition.source} onValueChange={handleSourceChange}>
+      <Select
+        value={condition.source}
+        onValueChange={(v) => v !== null && handleSourceChange(v)}
+      >
         <SelectTrigger className='w-28' size='sm'>
           <SelectValue />
         </SelectTrigger>
@@ -1305,11 +1316,13 @@ function LlmPromptHelper({ modelName }: LlmPromptHelperProps) {
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger asChild>
-        <Button variant='ghost' size='sm' className='h-7 px-2 text-xs'>
-          <Copy className='mr-1.5 h-3 w-3' />
-          {t('LLM prompt helper')}
-        </Button>
+      <CollapsibleTrigger
+        render={
+          <Button variant='ghost' size='sm' className='h-7 px-2 text-xs' />
+        }
+      >
+        <Copy className='mr-1.5 h-3 w-3' />
+        {t('LLM prompt helper')}
       </CollapsibleTrigger>
       <CollapsibleContent className='mt-2'>
         <div className='bg-muted/30 rounded-md border p-3'>

@@ -202,7 +202,7 @@ export function UsersMutateDrawer({
                         <FormLabel>{t('Role')}</FormLabel>
                         <Select
                           onValueChange={(value) =>
-                            field.onChange(parseInt(value))
+                            value !== null && field.onChange(parseInt(value))
                           }
                           value={String(field.value)}
                         >
@@ -397,8 +397,8 @@ export function UsersMutateDrawer({
             </form>
           </Form>
           <SheetFooter className='gap-2'>
-            <SheetClose asChild>
-              <Button variant='outline'>{t('Close')}</Button>
+            <SheetClose render={<Button variant='outline' />}>
+              {t('Close')}
             </SheetClose>
             <Button form='user-form' type='submit' disabled={isSubmitting}>
               {isSubmitting ? t('Saving...') : t('Save changes')}

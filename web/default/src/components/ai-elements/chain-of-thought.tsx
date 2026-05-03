@@ -7,13 +7,13 @@ import {
   useContext,
   useMemo,
 } from 'react'
-import { useControllableState } from '@radix-ui/react-use-controllable-state'
 import {
   BrainIcon,
   ChevronDownIcon,
   DotIcon,
   type LucideIcon,
 } from 'lucide-react'
+import { useControllableState } from '@/lib/use-controllable-state'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import {

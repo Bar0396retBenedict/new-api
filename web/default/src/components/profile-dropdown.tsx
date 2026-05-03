@@ -29,13 +29,18 @@ export function ProfileDropdown() {
   return (
     <>
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetTrigger asChild>
-          <Button variant='ghost' className='relative h-9 w-9 rounded-full p-0'>
-            <Avatar className='h-9 w-9'>
-              <AvatarImage src='/avatars/01.png' alt={`@${displayName}`} />
-              <AvatarFallback>{initials}</AvatarFallback>
-            </Avatar>
-          </Button>
+        <SheetTrigger
+          render={
+            <Button
+              variant='ghost'
+              className='relative h-9 w-9 rounded-full p-0'
+            />
+          }
+        >
+          <Avatar className='h-9 w-9'>
+            <AvatarImage src='/avatars/01.png' alt={`@${displayName}`} />
+            <AvatarFallback>{initials}</AvatarFallback>
+          </Avatar>
         </SheetTrigger>
         <SheetContent
           side='right'
@@ -77,37 +82,43 @@ export function ProfileDropdown() {
             </div>
 
             {/* Navigation links */}
-            <SheetClose asChild>
-              <Link
-                to='/profile'
-                className='text-primary/60 hover:text-primary/80 flex items-center gap-2.5 border-b p-2.5 transition-colors'
-              >
-                <User className='size-4' />
-                {t('Profile')}
-              </Link>
+            <SheetClose
+              render={
+                <Link
+                  to='/profile'
+                  className='text-primary/60 hover:text-primary/80 flex items-center gap-2.5 border-b p-2.5 transition-colors'
+                />
+              }
+            >
+              <User className='size-4' />
+              {t('Profile')}
             </SheetClose>
 
-            <SheetClose asChild>
-              <Link
-                to='/wallet'
-                className='text-primary/60 hover:text-primary/80 flex items-center gap-2.5 border-b p-2.5 transition-colors'
-              >
-                <Wallet className='size-4' />
-                {t('Wallet')}
-              </Link>
+            <SheetClose
+              render={
+                <Link
+                  to='/wallet'
+                  className='text-primary/60 hover:text-primary/80 flex items-center gap-2.5 border-b p-2.5 transition-colors'
+                />
+              }
+            >
+              <Wallet className='size-4' />
+              {t('Wallet')}
             </SheetClose>
 
             {/* System Settings - only for super admin */}
             {isSuperAdmin && (
-              <SheetClose asChild>
-                <Link
-                  to='/system-settings/general'
-                  search={{ section: 'system-info' }}
-                  className='text-primary/60 hover:text-primary/80 flex items-center gap-2.5 border-b p-2.5 transition-colors'
-                >
-                  <Settings className='size-4' />
-                  {t('System Settings')}
-                </Link>
+              <SheetClose
+                render={
+                  <Link
+                    to='/system-settings/general'
+                    search={{ section: 'system-info' }}
+                    className='text-primary/60 hover:text-primary/80 flex items-center gap-2.5 border-b p-2.5 transition-colors'
+                  />
+                }
+              >
+                <Settings className='size-4' />
+                {t('System Settings')}
               </SheetClose>
             )}
 

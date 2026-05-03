@@ -1,5 +1,6 @@
 import { type SVGProps } from 'react'
-import { Root as Radio, Item } from '@radix-ui/react-radio-group'
+import { Radio as RadioPrimitive } from '@base-ui/react/radio'
+import { RadioGroup as Radio } from '@base-ui/react/radio-group'
 import { CircleCheck, RotateCcw, Palette } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { IconDir } from '@/assets/custom/icon-dir'
@@ -28,6 +29,8 @@ import {
 } from '@/components/ui/sheet'
 import { useSidebar } from './ui/sidebar'
 
+const Item = RadioPrimitive.Root
+
 export function ConfigDrawer() {
   const { t } = useTranslation()
   const { setOpen } = useSidebar()
@@ -44,16 +47,18 @@ export function ConfigDrawer() {
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button
-          size='icon'
-          variant='ghost'
-          aria-label={t('Open theme settings')}
-          aria-describedby='config-drawer-description'
-          className='rounded-full max-md:hidden'
-        >
-          <Palette className='size-[1.2rem]' aria-hidden='true' />
-        </Button>
+      <SheetTrigger
+        render={
+          <Button
+            size='icon'
+            variant='ghost'
+            aria-label={t('Open theme settings')}
+            aria-describedby='config-drawer-description'
+            className='rounded-full max-md:hidden'
+          />
+        }
+      >
+        <Palette className='size-[1.2rem]' aria-hidden='true' />
       </SheetTrigger>
       <SheetContent className='flex w-full flex-col sm:max-w-md'>
         <SheetHeader className='pb-0 text-start'>

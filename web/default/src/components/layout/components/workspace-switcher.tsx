@@ -151,13 +151,15 @@ export function WorkspaceSwitcher({
       <SidebarMenuItem>
         {canSwitchWorkspace ? (
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton
-                size='lg'
-                className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
-              >
-                {workspaceButtonContent}
-              </SidebarMenuButton>
+            <DropdownMenuTrigger
+              render={
+                <SidebarMenuButton
+                  size='lg'
+                  className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
+                />
+              }
+            >
+              {workspaceButtonContent}
             </DropdownMenuTrigger>
             <DropdownMenuContent
               className='w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg'
@@ -194,11 +196,11 @@ export function WorkspaceSwitcher({
           </DropdownMenu>
         ) : (
           <SidebarMenuButton
-            asChild
             size='lg'
-            className='cursor-default hover:bg-transparent hover:text-sidebar-foreground active:bg-transparent active:text-sidebar-foreground'
+            className='hover:text-sidebar-foreground active:text-sidebar-foreground cursor-default hover:bg-transparent active:bg-transparent'
+            render={<div />}
           >
-            <div>{workspaceButtonContent}</div>
+            {workspaceButtonContent}
           </SidebarMenuButton>
         )}
       </SidebarMenuItem>

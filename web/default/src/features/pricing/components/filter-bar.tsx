@@ -84,30 +84,29 @@ function FilterChip(props: FilterChipProps) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button
-          type='button'
-          role='combobox'
-          aria-expanded={open}
-          className={cn(
-            'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-all',
-            isActive
-              ? 'border-foreground/30 bg-foreground/5 text-foreground'
-              : 'border-border bg-muted/50 text-muted-foreground hover:border-border/80 hover:text-foreground hover:bg-muted',
-            props.className
-          )}
-        >
-          {selectedOption?.icon}
-          <span className='max-w-[100px] truncate'>
-            {isActive && selectedOption ? selectedOption.label : props.label}
-          </span>
-          <ChevronDown
+      <PopoverTrigger
+        render={
+          <button
+            type='button'
+            role='combobox'
+            aria-expanded={open}
             className={cn(
-              'size-3.5 transition-transform',
-              open && 'rotate-180'
+              'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-all',
+              isActive
+                ? 'border-foreground/30 bg-foreground/5 text-foreground'
+                : 'border-border bg-muted/50 text-muted-foreground hover:border-border/80 hover:text-foreground hover:bg-muted',
+              props.className
             )}
           />
-        </button>
+        }
+      >
+        {selectedOption?.icon}
+        <span className='max-w-[100px] truncate'>
+          {isActive && selectedOption ? selectedOption.label : props.label}
+        </span>
+        <ChevronDown
+          className={cn('size-3.5 transition-transform', open && 'rotate-180')}
+        />
       </PopoverTrigger>
       <PopoverContent className='w-52 p-0' align='start'>
         <Command>
@@ -193,7 +192,7 @@ function SegmentedControl(props: SegmentedControlProps) {
         if (option.tooltip) {
           return (
             <Tooltip key={option.value}>
-              <TooltipTrigger asChild>{button}</TooltipTrigger>
+              <TooltipTrigger render={button}></TooltipTrigger>
               <TooltipContent side='bottom' className='text-xs'>
                 {option.tooltip}
               </TooltipContent>
@@ -539,17 +538,19 @@ export function FilterBar(props: FilterBarProps) {
           </div>
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant='outline'
-                size='sm'
-                className='h-8 gap-1.5 px-2.5 text-xs font-medium'
-              >
-                <ArrowUpDown className='size-3.5' />
-                <span className='hidden sm:inline'>
-                  {sortLabels[props.sortBy as SortOption] || t('Sort')}
-                </span>
-              </Button>
+            <DropdownMenuTrigger
+              render={
+                <Button
+                  variant='outline'
+                  size='sm'
+                  className='h-8 gap-1.5 px-2.5 text-xs font-medium'
+                />
+              }
+            >
+              <ArrowUpDown className='size-3.5' />
+              <span className='hidden sm:inline'>
+                {sortLabels[props.sortBy as SortOption] || t('Sort')}
+              </span>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end' className='w-44'>
               {Object.entries(sortLabels).map(([value, label]) => (
