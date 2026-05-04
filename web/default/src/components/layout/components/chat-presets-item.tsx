@@ -225,10 +225,13 @@ export function ChatPresetsItem({ item }: { item: NavChatPresets }) {
       className='group/collapsible'
       render={<SidebarMenuItem />}
     >
-      <CollapsibleTrigger render={<SidebarMenuButton />}>
+      <CollapsibleTrigger
+        className='group/collapsible-trigger'
+        render={<SidebarMenuButton />}
+      >
         {item.icon && <item.icon />}
         <span>{item.title}</span>
-        <ChevronRight className='ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
+        <ChevronRight className='ms-auto transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-90' />
       </CollapsibleTrigger>
       <CollapsibleContent className='CollapsibleContent'>
         <SidebarMenuSub>

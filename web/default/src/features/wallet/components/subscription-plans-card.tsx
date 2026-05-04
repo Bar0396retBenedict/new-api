@@ -261,7 +261,7 @@ export function SubscriptionPlansCard({
             <div className='flex w-full items-center gap-2 sm:w-auto'>
               <Select
                 value={displayPref}
-                  onValueChange={(v) => v !== null && handlePreferenceChange(v)}
+                onValueChange={(v) => v !== null && handlePreferenceChange(v)}
               >
                 <SelectTrigger className='h-8 flex-1 text-xs sm:w-[140px] sm:flex-none'>
                   <SelectValue />
@@ -513,11 +513,7 @@ export function SubscriptionPlansCard({
                     {reached ? (
                       <Tooltip>
                         <TooltipTrigger render={<div />}>
-                          <Button
-                            variant='outline'
-                            className='w-full'
-                            disabled
-                          >
+                          <Button variant='outline' className='w-full' disabled>
                             {t('Limit Reached')}
                           </Button>
                         </TooltipTrigger>

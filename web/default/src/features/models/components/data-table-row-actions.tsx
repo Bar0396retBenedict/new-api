@@ -49,7 +49,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         render={
           <Button
             variant='ghost'
-            className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
+            className='data-popup-open:bg-muted flex h-8 w-8 p-0'
           />
         }
       >

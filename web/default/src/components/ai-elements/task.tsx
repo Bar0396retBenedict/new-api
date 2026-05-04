@@ -64,7 +64,7 @@ export const TaskTrigger = ({
           <>
             <SearchIcon className='size-4' />
             <p className='text-sm'>{title}</p>
-            <ChevronDownIcon className='size-4 transition-transform group-data-[state=open]:rotate-180' />
+            <ChevronDownIcon className='size-4 transition-transform group-data-[panel-open]:rotate-180' />
           </>
         )}
       </div>
@@ -81,7 +81,7 @@ export const TaskContent = ({
 }: TaskContentProps) => (
   <CollapsibleContent
     className={cn(
-      'data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground data-[state=closed]:animate-out data-[state=open]:animate-in outline-none',
+      'data-closed:fade-out-0 data-closed:slide-out-to-top-2 data-open:slide-in-from-top-2 text-popover-foreground data-closed:animate-out data-open:animate-in outline-none',
       className
     )}
     {...props}

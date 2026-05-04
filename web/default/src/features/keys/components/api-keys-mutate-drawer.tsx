@@ -579,9 +579,7 @@ export function ApiKeysMutateDrawer({
         </Form>
         <SheetFooter className='bg-background grid grid-cols-2 gap-2 border-t px-3 py-3 sm:flex sm:flex-row sm:justify-end sm:px-5 sm:py-4'>
           <SheetClose
-            render={
-              <Button variant='outline' className='w-full sm:w-auto' />
-            }
+            render={<Button variant='outline' className='w-full sm:w-auto' />}
           >
             {t('Close')}
           </SheetClose>

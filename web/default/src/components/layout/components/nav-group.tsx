@@ -145,11 +145,14 @@ function SidebarMenuCollapsible({
       className='group/collapsible'
       render={<SidebarMenuItem />}
     >
-      <CollapsibleTrigger render={<SidebarMenuButton tooltip={item.title} />}>
+      <CollapsibleTrigger
+        className='group/collapsible-trigger'
+        render={<SidebarMenuButton tooltip={item.title} />}
+      >
         {item.icon && <item.icon />}
         <span>{item.title}</span>
         {item.badge && <NavBadge>{item.badge}</NavBadge>}
-        <ChevronRight className='ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
+        <ChevronRight className='ms-auto transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-90' />
       </CollapsibleTrigger>
       <CollapsibleContent className='CollapsibleContent'>
         <SidebarMenuSub>
@@ -187,6 +190,7 @@ function SidebarMenuCollapsedDropdown({
     <SidebarMenuItem>
       <DropdownMenu>
         <DropdownMenuTrigger
+          className='group/dropdown-trigger'
           render={
             <SidebarMenuButton
               tooltip={item.title}
@@ -197,7 +201,7 @@ function SidebarMenuCollapsedDropdown({
           {item.icon && <item.icon />}
           <span>{item.title}</span>
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
-          <ChevronRight className='ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
+          <ChevronRight className='ms-auto transition-transform duration-200 group-data-[popup-open]/dropdown-trigger:rotate-90' />
         </DropdownMenuTrigger>
         <DropdownMenuContent side='right' align='start' sideOffset={4}>
           <DropdownMenuLabel>

@@ -1,8 +1,7 @@
 import * as React from 'react'
 
 /**
- * Drop-in replacement for Radix's `@radix-ui/react-use-controllable-state`,
- * implemented locally so the project no longer depends on Radix utilities.
+ * Local helper for components that can be either controlled or uncontrolled.
  *
  * Mirrors the original signature: pass either a controlled `prop` (with
  * optional `onChange` callback) or an uncontrolled `defaultProp`. Returns a
@@ -10,8 +9,7 @@ import * as React from 'react'
  * an updater function, just like `useState`.
  *
  * The return tuple's value type is non-`undefined` whenever `defaultProp`
- * is provided, matching the original Radix overload behaviour and keeping
- * existing call sites well-typed.
+ * is provided, keeping existing call sites well-typed.
  */
 type SetStateFn<T> = (prevState?: T) => T
 

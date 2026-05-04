@@ -16,11 +16,6 @@ import { IconThemeSystem } from '@/assets/custom/icon-theme-system'
 import { cn } from '@/lib/utils'
 import { useDirection } from '@/context/direction-provider'
 import { type Collapsible, useLayout } from '@/context/layout-provider'
-import {
-  type ThemePreset,
-  type ThemeRadius,
-  useThemeCustomization,
-} from '@/context/theme-customization-provider'
 import { useTheme } from '@/context/theme-provider'
 import { Button } from '@/components/ui/button'
 import {
@@ -41,14 +36,12 @@ export function ConfigDrawer() {
   const { setOpen } = useSidebar()
   const { resetDir } = useDirection()
   const { resetTheme } = useTheme()
-  const { resetThemeCustomization } = useThemeCustomization()
   const { resetLayout } = useLayout()
 
   const handleReset = () => {
     setOpen(true)
     resetDir()
     resetTheme()
-    resetThemeCustomization()
     resetLayout()
   }
 
@@ -76,8 +69,6 @@ export function ConfigDrawer() {
         </SheetHeader>
         <div className='space-y-6 overflow-y-auto px-4'>
           <ThemeConfig />
-          <ThemePresetConfig />
-          <RadiusConfig />
           <SidebarConfig />
           <LayoutConfig />
           <DirConfig />
@@ -144,7 +135,7 @@ function RadioGroupItem(props: {
       <div
         className={cn(
           'ring-border relative rounded-[6px] ring-[1px]',
-          'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
+          'group-data-checked:ring-primary group-data-checked:shadow-2xl',
           'group-focus-visible:ring-2'
         )}
         role='img'
@@ -154,7 +145,7 @@ function RadioGroupItem(props: {
         <CircleCheck
           className={cn(
             'fill-primary size-6 stroke-white',
-            'group-data-[state=unchecked]:hidden',
+            'group-data-unchecked:hidden',
             'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2'
           )}
           aria-hidden='true'
@@ -162,7 +153,7 @@ function RadioGroupItem(props: {
         <props.item.icon
           className={cn(
             !isTheme &&
-              'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground'
+              'stroke-primary fill-primary group-data-unchecked:stroke-muted-foreground group-data-unchecked:fill-muted-foreground'
           )}
           aria-hidden='true'
         />
@@ -206,151 +197,6 @@ function ThemeConfig() {
       <div id='theme-description' className='sr-only'>
         {t('Choose between system preference, light mode, or dark mode')}
       </div>
-    </div>
-  )
-}
-
-const PRESET_OPTIONS: ReadonlyArray<{ value: ThemePreset; label: string }> = [
-  { value: 'default', label: 'Default' },
-  { value: 'underground', label: 'Underground' },
-  { value: 'rose-garden', label: 'Rose Garden' },
-  { value: 'lake-view', label: 'Lake View' },
-  { value: 'sunset-glow', label: 'Sunset Glow' },
-  { value: 'forest-whisper', label: 'Forest Whisper' },
-  { value: 'ocean-breeze', label: 'Ocean Breeze' },
-  { value: 'lavender-dream', label: 'Lavender Dream' },
-] as const
-
-function ThemePresetSwatch(props: { preset: ThemePreset }) {
-  return (
-    <div
-      className={cn(
-        'ring-border relative rounded-[6px] ring-[1px]',
-        'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
-        'group-focus-visible:ring-2'
-      )}
-    >
-      <CircleCheck
-        className={cn(
-          'fill-primary absolute top-0 right-0 z-10 size-5 stroke-white',
-          'translate-x-1/2 -translate-y-1/2',
-          'group-data-[state=unchecked]:hidden'
-        )}
-        aria-hidden='true'
-      />
-      <div
-        data-theme-preset={props.preset}
-        className='flex h-10 overflow-hidden rounded-[6px]'
-        role='img'
-        aria-hidden='true'
-      >
-        <span className='bg-background border-border/40 flex-1 border-r' />
-        <span className='bg-primary flex-1' />
-        <span className='bg-secondary flex-1' />
-        <span className='bg-accent flex-1' />
-      </div>
-    </div>
-  )
-}
-
-function ThemePresetConfig() {
-  const { t } = useTranslation()
-  const { defaultPreset, preset, setPreset } = useThemeCustomization()
-  return (
-    <div>
-      <SectionTitle
-        title={t('Theme preset')}
-        showReset={preset !== defaultPreset}
-        onReset={() => setPreset(defaultPreset)}
-      />
-      <Radio
-        value={preset}
-        onValueChange={(v) => setPreset(v as ThemePreset)}
-        className='grid w-full max-w-md grid-cols-4 gap-3'
-        aria-label={t('Select theme preset')}
-      >
-        {PRESET_OPTIONS.map((p) => (
-          <Item
-            key={p.value}
-            value={p.value}
-            className='group transition duration-200 ease-in outline-none'
-            aria-label={`Select ${p.label.toLowerCase()} preset`}
-          >
-            <ThemePresetSwatch preset={p.value} />
-            <div className='mt-1 truncate text-center text-xs'>
-              {t(p.label)}
-            </div>
-          </Item>
-        ))}
-      </Radio>
-    </div>
-  )
-}
-
-const RADIUS_OPTIONS: ReadonlyArray<{
-  value: ThemeRadius
-  label: string
-  rem: string
-}> = [
-  { value: 'default', label: 'Auto', rem: 'var(--radius)' },
-  { value: '0', label: '0', rem: '0rem' },
-  { value: '0.3', label: '0.3', rem: '0.3rem' },
-  { value: '0.5', label: '0.5', rem: '0.5rem' },
-  { value: '0.75', label: '0.75', rem: '0.75rem' },
-  { value: '1', label: '1.0', rem: '1rem' },
-] as const
-
-function RadiusConfig() {
-  const { t } = useTranslation()
-  const { defaultRadius, radius, setRadius } = useThemeCustomization()
-  return (
-    <div>
-      <SectionTitle
-        title={t('Radius')}
-        showReset={radius !== defaultRadius}
-        onReset={() => setRadius(defaultRadius)}
-      />
-      <Radio
-        value={radius}
-        onValueChange={(v) => setRadius(v as ThemeRadius)}
-        className='grid w-full max-w-md grid-cols-6 gap-2'
-        aria-label={t('Select corner radius')}
-      >
-        {RADIUS_OPTIONS.map((r) => (
-          <Item
-            key={r.value}
-            value={r.value}
-            className='group transition duration-200 ease-in outline-none'
-            aria-label={`Set radius to ${r.label}`}
-          >
-            <div
-              className={cn(
-                'ring-border relative flex aspect-square items-end justify-end p-1.5 ring-[1px]',
-                'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
-                'group-focus-visible:ring-2'
-              )}
-              style={{ borderRadius: r.rem }}
-            >
-              <CircleCheck
-                className={cn(
-                  'fill-primary absolute top-0 right-0 z-10 size-5 stroke-white',
-                  'translate-x-1/2 -translate-y-1/2',
-                  'group-data-[state=unchecked]:hidden'
-                )}
-                aria-hidden='true'
-              />
-              <span
-                className='border-foreground/70 size-4 border-t-2 border-r-2'
-                style={{
-                  borderTopRightRadius: r.rem,
-                }}
-                aria-hidden='true'
-              />
-            </div>
-            <div className='mt-1 text-center text-xs'>{r.label}</div>
-          </Item>
-        ))}
-      </Radio>
     </div>
   )
 }
