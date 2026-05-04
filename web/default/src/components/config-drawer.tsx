@@ -144,7 +144,7 @@ function RadioGroupItem(props: {
       <div
         className={cn(
           'ring-border relative rounded-[6px] ring-[1px]',
-          'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
+          'group-data-[checked]:ring-primary group-data-[checked]:shadow-2xl',
           'group-focus-visible:ring-2'
         )}
         role='img'
@@ -154,7 +154,7 @@ function RadioGroupItem(props: {
         <CircleCheck
           className={cn(
             'fill-primary size-6 stroke-white',
-            'group-data-[state=unchecked]:hidden',
+            'group-data-[unchecked]:hidden',
             'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2'
           )}
           aria-hidden='true'
@@ -162,7 +162,7 @@ function RadioGroupItem(props: {
         <props.item.icon
           className={cn(
             !isTheme &&
-              'stroke-primary fill-primary group-data-[state=unchecked]:stroke-muted-foreground group-data-[state=unchecked]:fill-muted-foreground'
+              'stroke-primary fill-primary group-data-[unchecked]:stroke-muted-foreground group-data-[unchecked]:fill-muted-foreground'
           )}
           aria-hidden='true'
         />
@@ -226,7 +226,7 @@ function ThemePresetSwatch(props: { preset: ThemePreset }) {
     <div
       className={cn(
         'ring-border relative rounded-[6px] ring-[1px]',
-        'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
+        'group-data-[checked]:ring-primary group-data-[checked]:shadow-2xl',
         'group-focus-visible:ring-2'
       )}
     >
@@ -234,12 +234,13 @@ function ThemePresetSwatch(props: { preset: ThemePreset }) {
         className={cn(
           'fill-primary absolute top-0 right-0 z-10 size-5 stroke-white',
           'translate-x-1/2 -translate-y-1/2',
-          'group-data-[state=unchecked]:hidden'
+          'group-data-[unchecked]:hidden'
         )}
         aria-hidden='true'
       />
       <div
-        data-theme-preset={props.preset}
+        data-theme-preview={props.preset === 'default' ? 'default' : undefined}
+        data-theme-preset={props.preset === 'default' ? undefined : props.preset}
         className='flex h-10 overflow-hidden rounded-[6px]'
         role='img'
         aria-hidden='true'
@@ -326,7 +327,7 @@ function RadiusConfig() {
             <div
               className={cn(
                 'ring-border relative flex aspect-square items-end justify-end p-1.5 ring-[1px]',
-                'group-data-[state=checked]:ring-primary group-data-[state=checked]:shadow-2xl',
+                'group-data-[checked]:ring-primary group-data-[checked]:shadow-2xl',
                 'group-focus-visible:ring-2'
               )}
               style={{ borderRadius: r.rem }}
@@ -335,7 +336,7 @@ function RadiusConfig() {
                 className={cn(
                   'fill-primary absolute top-0 right-0 z-10 size-5 stroke-white',
                   'translate-x-1/2 -translate-y-1/2',
-                  'group-data-[state=unchecked]:hidden'
+                  'group-data-[unchecked]:hidden'
                 )}
                 aria-hidden='true'
               />
