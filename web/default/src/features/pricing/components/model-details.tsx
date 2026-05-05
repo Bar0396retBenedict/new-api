@@ -792,7 +792,7 @@ export function ModelDetailsContent(props: ModelDetailsContentProps) {
     Boolean(props.model.billing_expr)
 
   return (
-    <div className='space-y-4'>
+    <div className='@container/details space-y-4'>
       <ModelHeader model={props.model} />
 
       <ModelDetailsQuickStats metadata={metadata} />

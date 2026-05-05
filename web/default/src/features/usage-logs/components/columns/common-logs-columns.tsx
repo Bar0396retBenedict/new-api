@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { type ColumnDef } from '@tanstack/react-table'
 import { CircleAlert, Sparkles, KeyRound } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { getUserAvatarFallback, getUserAvatarStyle } from '@/lib/avatar'
 import { formatBillingCurrencyFromUSD } from '@/lib/currency'
 import {
   formatUseTime,
@@ -19,7 +20,6 @@ import {
 import { DataTableColumnHeader } from '@/components/data-table'
 import { StatusBadge, type StatusBadgeProps } from '@/components/status-badge'
 import type { UsageLog } from '../../data/schema'
-import { getLogAvatarStyle } from '../../lib/avatar-color'
 import {
   formatModelName,
   getFirstResponseTimeColor,
@@ -404,13 +404,11 @@ export function useCommonLogsColumns(isAdmin: boolean): ColumnDef<UsageLog>[] {
                   )}
                   style={
                     sensitiveVisible
-                      ? getLogAvatarStyle(log.username)
+                      ? getUserAvatarStyle(log.username)
                       : undefined
                   }
                 >
-                  {sensitiveVisible
-                    ? log.username.charAt(0).toUpperCase()
-                    : '•'}
+                  {sensitiveVisible ? getUserAvatarFallback(log.username) : '•'}
                 </AvatarFallback>
               </Avatar>
               <span className='text-muted-foreground truncate text-sm hover:underline'>
