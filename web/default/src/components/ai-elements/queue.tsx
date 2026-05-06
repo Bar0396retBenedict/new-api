@@ -212,18 +212,20 @@ export const QueueSectionTrigger = ({
   className,
   ...props
 }: QueueSectionTriggerProps) => (
-  <CollapsibleTrigger asChild>
-    <Button
-      variant='ghost'
-      className={cn(
-        'group bg-muted/40 text-muted-foreground hover:bg-muted h-auto w-full justify-between px-3 py-2 text-left',
-        className
-      )}
-      type='button'
-      {...props}
-    >
-      {children}
-    </Button>
+  <CollapsibleTrigger
+    render={
+      <Button
+        variant='ghost'
+        className={cn(
+          'group bg-muted/40 text-muted-foreground hover:bg-muted h-auto w-full justify-between px-3 py-2 text-left',
+          className
+        )}
+        type='button'
+        {...props}
+      />
+    }
+  >
+    {children}
   </CollapsibleTrigger>
 )
 

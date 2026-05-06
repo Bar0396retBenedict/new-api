@@ -8,8 +8,8 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { useControllableState } from '@radix-ui/react-use-controllable-state'
 import { BrainIcon, ChevronDownIcon } from 'lucide-react'
+import { useControllableState } from '@/lib/use-controllable-state'
 import { cn } from '@/lib/utils'
 import {
   Collapsible,

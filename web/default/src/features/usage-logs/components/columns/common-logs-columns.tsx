@@ -301,44 +301,46 @@ export function useCommonLogsColumns(isAdmin: boolean): ColumnDef<UsageLog>[] {
           return (
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className='flex max-w-[160px] flex-col gap-0.5'>
-                    <div className='relative inline-flex w-fit'>
-                      <StatusBadge
-                        label={channelIdDisplay}
-                        autoColor={String(log.channel)}
-                        copyText={String(log.channel)}
-                        size='sm'
-                        className='font-mono'
-                      />
-                      {affinity && (
-                        <button
-                          type='button'
-                          className='absolute -top-1 -right-1 leading-none text-amber-500'
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            setAffinityTarget({
-                              rule_name: affinity.rule_name || '',
-                              using_group:
-                                affinity.using_group ||
-                                affinity.selected_group ||
-                                '',
-                              key_hint: affinity.key_hint || '',
-                              key_fp: affinity.key_fp || '',
-                            })
-                            setAffinityDialogOpen(true)
-                          }}
-                        >
-                          <Sparkles className='size-3 fill-current' />
-                        </button>
-                      )}
-                    </div>
-                    {log.channel_name && (
-                      <span className='text-muted-foreground/70 truncate text-[11px]'>
-                        {channelName}
-                      </span>
+                <TooltipTrigger
+                  render={
+                    <div className='flex max-w-[160px] flex-col gap-0.5' />
+                  }
+                >
+                  <div className='relative inline-flex w-fit'>
+                    <StatusBadge
+                      label={channelIdDisplay}
+                      autoColor={String(log.channel)}
+                      copyText={String(log.channel)}
+                      size='sm'
+                      className='font-mono'
+                    />
+                    {affinity && (
+                      <button
+                        type='button'
+                        className='absolute -top-1 -right-1 leading-none text-amber-500'
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setAffinityTarget({
+                            rule_name: affinity.rule_name || '',
+                            using_group:
+                              affinity.using_group ||
+                              affinity.selected_group ||
+                              '',
+                            key_hint: affinity.key_hint || '',
+                            key_fp: affinity.key_fp || '',
+                          })
+                          setAffinityDialogOpen(true)
+                        }}
+                      >
+                        <Sparkles className='size-3 fill-current' />
+                      </button>
                     )}
                   </div>
+                  {log.channel_name && (
+                    <span className='text-muted-foreground/70 truncate text-[11px]'>
+                      {channelName}
+                    </span>
+                  )}
                 </TooltipTrigger>
                 <TooltipContent>
                   <div className='space-y-1'>
@@ -585,9 +587,9 @@ export function useCommonLogsColumns(isAdmin: boolean): ColumnDef<UsageLog>[] {
                 other.stream_status.status !== 'ok' && (
                   <TooltipProvider>
                     <Tooltip>
-                      <TooltipTrigger asChild>
-                        <CircleAlert className='size-3 text-red-500' />
-                      </TooltipTrigger>
+                      <TooltipTrigger
+                        render={<CircleAlert className='size-3 text-red-500' />}
+                      ></TooltipTrigger>
                       <TooltipContent>
                         <div className='space-y-0.5 text-xs'>
                           <p>
@@ -680,14 +682,16 @@ export function useCommonLogsColumns(isAdmin: boolean): ColumnDef<UsageLog>[] {
           return (
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className='inline-flex items-center gap-1 rounded-md border border-emerald-200 bg-emerald-50 px-1.5 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300'>
-                    <span
-                      className='size-1.5 rounded-full bg-emerald-500'
-                      aria-hidden='true'
-                    />
-                    {t('Subscription')}
-                  </span>
+                <TooltipTrigger
+                  render={
+                    <span className='inline-flex items-center gap-1 rounded-md border border-emerald-200 bg-emerald-50 px-1.5 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300' />
+                  }
+                >
+                  <span
+                    className='size-1.5 rounded-full bg-emerald-500'
+                    aria-hidden='true'
+                  />
+                  {t('Subscription')}
                 </TooltipTrigger>
                 <TooltipContent>
                   <span>
