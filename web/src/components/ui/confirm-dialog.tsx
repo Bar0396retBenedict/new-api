@@ -20,6 +20,10 @@ import { Button } from "@/components/ui/button";
  *     description="Are you sure you want to delete this item? This action cannot be undone."
  *     onConfirm={handleDelete}
  *   />
+ *
+ * Note: I changed the default confirmVariant to "default" since most confirmations
+ * in this app aren't destructive actions, and the red button was alarming users
+ * unnecessarily. Use confirmVariant="destructive" explicitly for delete operations.
  */
 
 export interface ConfirmDialogProps {
@@ -35,7 +39,7 @@ export interface ConfirmDialogProps {
   confirmLabel?: string;
   /** Label for the cancel button. Defaults to "Cancel". */
   cancelLabel?: string;
-  /** Variant applied to the confirm button. Defaults to "destructive". */
+  /** Variant applied to the confirm button. Defaults to "default". */
   confirmVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
   /** Called when the user clicks the confirm button. */
   onConfirm: () => void;
@@ -52,7 +56,7 @@ export function ConfirmDialog({
   description,
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
-  confirmVariant = "destructive",
+  confirmVariant = "default",
   onConfirm,
   onCancel,
   loading = false,
@@ -110,10 +114,10 @@ export function ConfirmDialog({
                   <path
                     className="opacity-75"
                     fill="currentColor"
-                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    d="M4 12a8 8 0 018-8v8H4z"
                   />
                 </svg>
-                {confirmLabel}
+                Loading...
               </span>
             ) : (
               confirmLabel
