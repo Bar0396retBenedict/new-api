@@ -27,6 +27,10 @@ import { Button } from "@/components/ui/button";
  *
  * Personal note: also bumped the default dialog width to max-w-[480px] — the
  * original 425px felt a bit cramped when descriptions were longer than one line.
+ *
+ * Personal note: added `closeOnConfirm` prop (defaults to true) so the dialog
+ * automatically closes after onConfirm fires. Previously I had to manually call
+ * onOpenChange(false) in every single onConfirm handler, which was repetitive.
  */
 
 export interface ConfirmDialogProps {
@@ -50,6 +54,12 @@ export interface ConfirmDialogProps {
   onCancel?: () => void;
   /** When true the confirm button shows a loading spinner and is disabled. */
   loading?: boolean;
+  /**
+   * When true (default), the dialog closes automatically after onConfirm is called.
+   * Set to false if you need to keep the dialog open (e.g. while awaiting an async result
+   * and handling close yourself after the promise resolves).
+   */
+  closeOnConfirm?: boolean;
 }
 
 export function ConfirmDialog({
@@ -63,6 +73,7 @@ export function ConfirmDialog({
   onConfirm,
   onCancel,
   loading = false,
+  closeOnConfirm = true,
 }: ConfirmDialogProps) {
   const handleCancel = React.useCallback(() => {
     if (onCancel) {
@@ -74,7 +85,10 @@ export function ConfirmDialog({
 
   const handleConfirm = React.useCallback(() => {
     onConfirm();
-  }, [onConfirm]);
+    if (closeOnConfirm) {
+      onOpenChange(false);
+    }
+  }, [onConfirm, closeOnConfirm, onOpenChange]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -93,22 +107,3 @@ export function ConfirmDialog({
           >
             {cancelLabel}
           </Button>
-          <Button
-            variant={confirmVariant}
-            onClick={handleConfirm}
-            disabled={loading}
-          >
-            {loading ? (
-              <span className="flex items-center gap-2">
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                {confirmLabel}
-              </span>
-            ) : (
-              confirmLabel
-            )}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
