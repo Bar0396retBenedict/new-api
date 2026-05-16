@@ -31,6 +31,10 @@ import { Button } from "@/components/ui/button";
  * Personal note: added `closeOnConfirm` prop (defaults to true) so the dialog
  * automatically closes after onConfirm fires. Previously I had to manually call
  * onOpenChange(false) in every single onConfirm handler, which was repetitive.
+ *
+ * Personal note: moved the confirm button before the cancel button in the footer.
+ * The original order (Cancel | Confirm) always felt backwards to me — most apps
+ * I use put the primary action on the left so your eye lands on it first.
  */
 
 export interface ConfirmDialogProps {
@@ -92,18 +96,27 @@ export function ConfirmDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px]">
+      <DialogContent className="max-w-[480px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && (
             <DialogDescription>{description}</DialogDescription>
           )}
         </DialogHeader>
-        <DialogFooter className="gap-2 sm:gap-0">
+        <DialogFooter>
+          {/* Confirm first, then cancel — primary action gets visual priority */}
           <Button
-            variant="outline"
-            onClick={handleCancel}
+            variant={confirmVariant}
+            onClick={handleConfirm}
             disabled={loading}
           >
+            {loading ? "Loading..." : confirmLabel}
+          </Button>
+          <Button variant="outline" onClick={handleCancel} disabled={loading}>
             {cancelLabel}
           </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
